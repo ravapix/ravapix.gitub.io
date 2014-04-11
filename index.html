@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>2048 NWI</title>
+
+  <link href="style/main.css" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico">
+  <link rel="apple-touch-icon" href="meta/apple-touch-icon.png">
+  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x1096.png" media="(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone 5+ -->
+  <link rel="apple-touch-startup-image" href="meta/apple-touch-startup-image-640x920.png"  media="(device-width: 320px) and (device-height: 480px) and (-webkit-device-pixel-ratio: 2)"> <!-- iPhone, retina -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, target-densitydpi=160dpi, initial-scale=1.0, maximum-scale=1, user-scalable=no, minimal-ui">
+
+  <style>.tile-text {
+    display:inline-block;
+    vertical-align: middle;
+  }
+  
+  /* lol !important */
+  
+  .tile-inner { background-position: center center !important; background-size: cover !important; background-repeat: no-repeat !important; }
+
+
+    
+    .tile-2 .tile-inner {
+      background-image: url("./images/fred.jpg") !important; 
+    }
+  
+    
+    .tile-4 .tile-inner {
+      background-image: url("./images/didier.jpg") !important; 
+    }
+  
+    
+    .tile-8 .tile-inner {
+      background-image: url("./images/christophe.jpg") !important; 
+    }
+  
+    
+    .tile-16 .tile-inner {
+      background-image: url("./images/lorene.jpg") !important; 
+    }
+  
+    
+    .tile-32 .tile-inner { 
+      background-image: url("./images/olivier.jpg") !important;
+    }
+  
+    
+    .tile-64 .tile-inner {
+      background-image: url("./images/ivan.jpg") !important; 
+    }
+  
+    
+    .tile-128 .tile-inner {
+      background-image: url("./images/melinda.jpg") !important; 
+    }
+  
+    
+    .tile-256 .tile-inner {
+      background-image: url("./images/steve.jpg") !important; 
+    }
+  
+    
+    .tile-512 .tile-inner {
+      background-image: url("./images/sandra.jpg") !important; 
+    }
+  
+    
+    .tile-1024 .tile-inner {
+      background-image: url("./images/yves.jpg") !important; 
+    }
+  
+    
+    .tile-2048 .tile-inner {
+       background-image: url("./images/nadja.jpg") !important;
+    }
+
+
+    .tile-4096 .tile-inner {
+      background-image: url("./images/djemi.jpg") !important; 
+    }
+
+
+    .tile-8192 .tile-inner {
+      background-image: url("./images/markus.jpg") !important; 
+    }
+  
+    
+  
+  .thisistext, p, a, h1 { color: #776e65; }
+  .game-container { background-color: #bbada0 }
+  
+  
+  .preload, .preload img { position: absolute; top: -100px; -left: 100px; width: 1px; height: 1px; overflow: hidden; }
+  
+  #fix { 
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%; position: fixed; z-index: -1000; 
+            
+        background-color: #faf8ef;
+      
+        }
+
+</style>
+<script>
+var external_score; 
+var tile_contents = ["","","","","","","","","","","",""];
+var external_score;
+</script>
+
+</head>
+<body>
+
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/fr_FR/all.js#xfbml=1&appId=332903023448106";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+  <div class="container">
+    <div class="heading">
+      <h1 class="title">2048</h1>
+      <div class="scores-container">
+        <div class="score-container">0</div>
+        <div class="best-container">0</div>
+      </div>
+    </div>
+
+    <div class="above-game">
+      <p class="game-intro">Tcheu c't'&eacute;quipe ! <strong></strong></p>
+      <a class="restart-button">Recommence voir</a>
+    </div>
+
+    <div class="game-container">
+      <div class="game-message">
+        <p></p>
+        <div class="lower">
+	        <a class="keep-playing-button">Continue voir</a>
+          <a class="retry-button">Essaie voir encore</a>
+        </div>
+      </div>
+
+      <div class="grid-container">
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+        <div class="grid-row">
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+          <div class="grid-cell"></div>
+        </div>
+      </div>
+
+      <div class="tile-container">
+
+      </div>
+    </div>
+
+    <p class="game-explanation">Jouez avec vos coll&egrave;gues durant votre temps libre !
+    </p>
+    <hr>
+    <p>
+    <strong class="important">Note:</strong> Ce jeu a &eacute;t&eacute; adapt&eacute; par... Jan Schoebachler... sur la base de la version officielle du jeu '2048' de <a href="http://gabrielecirulli.com" target="_blank">Gabriele Cirulli</a>.
+    </p>
+    <hr>
+    <p>
+    </p>
+  </div>
+
+  <script src="js/bind_polyfill.js"></script>
+  <script src="js/classlist_polyfill.js"></script>
+  <script src="js/animframe_polyfill.js"></script>
+  <script src="js/keyboard_input_manager.js"></script>
+  <script src="js/html_actuator.js"></script>
+  <script src="js/grid.js"></script>
+  <script src="js/tile.js"></script>
+  <script src="js/local_storage_manager.js"></script>
+  <script src="js/game_manager.js"></script>
+  <script src="js/application.js"></script>
+  
+  <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-43071443-1', 'farquet.com');
+  ga('send', 'pageview');
+</script>
+</body>
+</html>
